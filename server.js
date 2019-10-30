@@ -5,6 +5,7 @@ const userRouter = require('./users/userRouter');
 
 //custom middleware
 server.use(helmet());
+server.use(express.json());
 server.use(logger);
 
 server.use('/users', userRouter);

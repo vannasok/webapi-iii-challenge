@@ -93,10 +93,11 @@ router.delete('/:id', validateUserId, (req, res) => {
 });
 
 //edit user #######################
-router.put('/:id', validateUserId, validateUser, (req, res) => {
-   const { id } = req.params;
-   const changes = req.body;
-   Users.update(id, changes)
+router.put('/:id', validateUserId, (req, res) => {
+   const id = req.params.id;
+
+   users
+      .update(id, req.body)
       .then(update => {
          res.status(201).json(update);
       })
@@ -111,7 +112,7 @@ router.put('/:id', validateUserId, validateUser, (req, res) => {
 //custom middleware
 
 function validateUserId(req, res, next) {
-   const { id } = req.params;
+   const id = req.params.id;
    users
       .getById(id)
       .then(user => {
