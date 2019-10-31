@@ -1,15 +1,26 @@
-const express = 'express';
-
+const express = require('express');
+const helmet = require('helmet');
 const server = express();
-
-server.get('/', (req, res) => {
-  res.send(`<h2>Let's write some middleware!</h2>`)
-});
+const userRouter = require('./users/userRouter');
 
 //custom middleware
+server.use(helmet());
+server.use(express.json());
+server.use(logger);
+
+server.use('/users', userRouter);
+
+server.get('/', (req, res) => {
+   res.status(200).json({ message: 'Lets write some middleware, this is 2' });
+});
 
 function logger(req, res, next) {
-
-};
+   const time = new Date().toLocaleTimeString();
+   const date = new Date().toLocaleDateString();
+   console.log(
+      `${req.method} Request | http://localhost:4000${req.url} | ${date} , ${time}`
+   );
+   next();
+}
 
 module.exports = server;
