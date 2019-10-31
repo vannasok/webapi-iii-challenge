@@ -11,7 +11,7 @@ server.use(logger);
 server.use('/users', userRouter);
 
 server.get('/', (req, res) => {
-   res.status(200).json({ message: 'Lets write some middleware' });
+   res.status(200).json({ message: 'Lets write some middleware, this is 2' });
 });
 
 function logger(req, res, next) {
